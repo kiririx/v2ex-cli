@@ -32,12 +32,14 @@ func main() {
 	tabpane.SetRect(0, 1, 1000, 4)
 	tabpane.Border = true
 
+	var currentContent *widgets.List
 	renderTab := func() {
 		// switch tabpane.ActiveTabIndex {
 		// case 0:
 		// 	ui.Render(GetTabContent(tabs[tabpane.ActiveTabIndex]))
 		// }
-		ui.Render(GetTabContent(tabs[tabpane.ActiveTabIndex].Name))
+		currentContent = GetTabContent(tabs[tabpane.ActiveTabIndex].Name)
+		ui.Render(currentContent)
 	}
 
 	ui.Render(header, tabpane, p2)
@@ -59,6 +61,8 @@ func main() {
 			ui.Clear()
 			ui.Render(header, tabpane)
 			renderTab()
+		case "<Down>":
+			currentContent.ScrollDown()
 		}
 	}
 }
